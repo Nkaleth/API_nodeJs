@@ -1,0 +1,19 @@
+{
+  "name": "api_nodejs",
+  "version": "1.0.0",
+  "description": "API restful created with node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nkaleth/API_nodeJs.git"
+  },
+  "author": "Nilton Segura",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nkaleth/API_nodeJs/issues"
+  },
+  "homepage": "https://github.com/Nkaleth/API_nodeJs#readme"
+}
