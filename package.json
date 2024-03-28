@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Nkaleth/API_nodeJs/issues"
   },
-  "homepage": "https://github.com/Nkaleth/API_nodeJs#readme"
+  "homepage": "https://github.com/Nkaleth/API_nodeJs#readme",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
 }
