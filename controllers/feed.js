@@ -18,6 +18,13 @@ exports.getPosts = (req, res, next) => {
 };
 
 exports.createPost = (req, res, next) => {
+  const errors = validationResult(req); //extracts automatically any error that validation package gathers
+  if (!errors.isEmpty()) {
+    return res.status(422).json({
+      message: "Validation failed, entered data is incorrect.",
+      errors: errors.array(),
+    });
+  }
   const title = req.body.title;
   const content = req.body.content;
   console.log(title, content);
