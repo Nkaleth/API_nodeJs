@@ -24,12 +24,19 @@ exports.createPost = (req, res, next) => {
     error.statusCode = 422;
     throw error;
   }
+  if (!req.file) {
+    const error = new Error("No image provided");
+    error.statusCode = 422;
+    throw error;
+  }
+  const imageUrl = req.file.path;
   const title = req.body.title;
   const content = req.body.content;
+  clear;
   const post = new Post({
     title: title,
     content: content,
-    imageUrl: "images/lovecraft.jpg",
+    imageUrl: imageUrl,
     creator: { name: "Nilton Segura" },
   });
   post
@@ -66,4 +73,19 @@ exports.getPost = (req, res, next) => {
       }
       next(err);
     });
+};
+
+exports.updatePost = (req, res, next) => {
+  const postId = req.params.postId;
+  const title = req.params.title;
+  const content = req.params.content;
+  let imageUrl = req.body.image;
+  if (req.file) {
+    imageUrl = req.file.path;
+  }
+  if (!imageUrl) {
+    const error = new Error("No file picked.");
+    error.statusCode = 422;
+    throw error;
+  }
 };
