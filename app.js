@@ -10,6 +10,15 @@ const feedRoutes = require("./routes/feed");
 
 const app = express();
 
+const fileStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "images");
+  },
+  filename: (req, file, cb) => {
+    cb(null, new Date().toISOString() + "-" + file.originalname);
+  },
+});
+
 // app.use(bodyParser.urlencoded()); // xx-www-form-urlencoded <form>
 app.use(bodyParser.json()); // application json
 app.use("/images", express.static(path.join(__dirname, "images")));
