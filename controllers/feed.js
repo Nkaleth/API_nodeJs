@@ -5,13 +5,21 @@ const { validationResult } = require("express-validator");
 const Post = require("../models/post");
 
 exports.getPosts = (req, res, next) => {
+  const currentPage = req.params.page || 1;
+  const perPage = 2; // Hardcoded to be 2, it could be dynamically implemented
+  let totalItems;
   Post.find()
+    .countDocuments()
+    .then((count) => {
+      totalItems = count;
+      return Post.find();
+    })
     .then((posts) => {
       res
         .status(200)
         .json({ message: "Fetched posts successfully", posts: posts });
     })
-    .catch((error) => {
+    .catch((err) => {
       if (!err.statusCode) {
         err.statusCode = 500;
       }
@@ -38,7 +46,7 @@ exports.createPost = (req, res, next) => {
     title: title,
     content: content,
     imageUrl: imageUrl,
-    creator: { name: "Nilton Segura" },
+    creator: { name: "John Snow" },
   });
   post
     .save()
