@@ -5,7 +5,7 @@ const { validationResult } = require("express-validator");
 const Post = require("../models/post");
 
 exports.getPosts = (req, res, next) => {
-  const currentPage = req.params.page || 1;
+  const currentPage = req.query.page || 1;
   const perPage = 2; // Hardcoded to be 2, it could be dynamically implemented
   let totalItems;
   Post.find()
