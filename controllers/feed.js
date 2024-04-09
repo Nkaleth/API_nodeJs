@@ -12,7 +12,9 @@ exports.getPosts = (req, res, next) => {
     .countDocuments()
     .then((count) => {
       totalItems = count;
-      return Post.find();
+      return Post.find()
+        .skip((currentPage - 1) * perPage)
+        .limit(perPage);
     })
     .then((posts) => {
       res
