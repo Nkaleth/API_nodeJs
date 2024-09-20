@@ -1,5 +1,6 @@
 const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 
 exports.signup = (req, res, next) => {
@@ -54,6 +55,11 @@ exports.login = (req, res, next) => {
         error.statusCode = 401;
         throw error;
       }
+      const token = jwt.sign(
+        { email: loadedUser.email, userId: loadedUser._id.toString() },
+        "tokensupersecret",
+        { expiresIn: "1h" }
+      );
     })
     .catch((err) => {
       if (!err.statusCode) {
