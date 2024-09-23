@@ -106,8 +106,8 @@ exports.updatePost = (req, res, next) => {
     error.statusCode = 422;
     throw error;
   }
-  const title = req.params.title;
-  const content = req.params.content;
+  const title = req.body.title;
+  const content = req.body.content;
   let imageUrl = req.body.image;
   if (req.file) {
     imageUrl = req.file.path;
@@ -122,6 +122,11 @@ exports.updatePost = (req, res, next) => {
       if (!post) {
         const error = new Error("Could not find post.");
         error.statusCode = 404;
+        throw error;
+      }
+      if (post.creator.toString() !== req.userId) {
+        const error = new Error("Not authorized!");
+        error.statusCode = 403;
         throw error;
       }
       if (imageUrl !== post.imageUrl) {
